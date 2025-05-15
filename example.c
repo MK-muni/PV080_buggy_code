@@ -16,8 +16,13 @@ int main(void) {
     // iv || ciphertext
     recv_message(message);
     
-    memcpy(iv, message, 16);
-    memcpy(ciphertext, message + 16, 48);
+    if (sizeof(iv) >= 16) {
+        memcpy(iv, message, 16);
+    }
+
+    if (sizeof(ciphertext) >= 48) {
+        memcpy(ciphertext, message + 16, 48);
+    }
 
     decrypt_message(iv, ciphertext, plaintext);
 
